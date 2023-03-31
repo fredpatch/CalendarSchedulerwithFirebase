@@ -72,10 +72,12 @@ public class MainActivity extends AppCompatActivity {
                 viewDialogAdd.showdialog(MainActivity.this);
             }
         });
-        
+
+        //call data reader method
         readData();
     }
 
+    //read/ retrieve data from database and display in the recycle view provided
     private void readData() {
         databaseReference.child("EVENTS").orderByChild("eventName").addValueEventListener(new ValueEventListener() {
             @Override
@@ -98,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    //Dialog widow to help add new event to the database
     public class ViewDialogAdd{
         public void showdialog(Context context){
             final Dialog dialog = new Dialog(context);
@@ -105,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
             dialog.setCancelable(false);
             dialog.setContentView(R.layout.alert_dialog_add_new_event);
 
+            //Retrieve value from editext to supply our database
             EditText txt_name_event = dialog.findViewById(R.id.text_add_event_Name);
             EditText txt_desc_event = dialog.findViewById(R.id.text_add_event_desc);
 
@@ -120,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
+            //add event button operation
             buttonAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -127,9 +132,12 @@ public class MainActivity extends AppCompatActivity {
                     String name = txt_name_event.getText().toString();
                     String desc = txt_desc_event.getText().toString();
 
+                    //Test if either value is entered or not
+                    //If no value entered, prompt a Toast alerting the user to enter values
                     if (name.isEmpty() || desc.isEmpty()){
                         Toast.makeText(context, "Please Fill All Data", Toast.LENGTH_LONG).show();
                     }else {
+                        //Event saved in case the values have been provided
                         databaseReference.child("EVENTS").child(id).setValue(new Calendar_Event(id,name,desc));
                         Toast.makeText(context, "Event Saved ...", Toast.LENGTH_LONG).show();
                         dialog.dismiss();

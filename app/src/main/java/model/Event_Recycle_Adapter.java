@@ -12,19 +12,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.activity.calendarschedulerwithfirebase.BuildConfig;
 import com.activity.calendarschedulerwithfirebase.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Event_Recycle_Adapter extends RecyclerView.Adapter<Event_Recycle_Adapter.ViewHolder> {
 
@@ -55,17 +49,21 @@ public class Event_Recycle_Adapter extends RecyclerView.Adapter<Event_Recycle_Ad
         holder.textEventName.setText("Event Name : " + events.getTitle());
         holder.textEventDescp.setText("Event Description : " + events.getDescription());
 
+        //Update button operation
         holder.updateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Dialog window to help update our event
                 ViewDialogUpdate viewDialogUpdate = new ViewDialogUpdate();
                 viewDialogUpdate.showdialog(context,events.getId(),events.getTitle(),events.getDescription());
             }
         });
 
+        //Delete button operation
         holder.deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //initialize dialog window to confirm weither or not we want to delete an event
                 ViewDialogConfirmDelete viewDialogConfirmDelete = new ViewDialogConfirmDelete();
                 viewDialogConfirmDelete.showdialog(context, events.getId());
             }
@@ -80,6 +78,7 @@ public class Event_Recycle_Adapter extends RecyclerView.Adapter<Event_Recycle_Ad
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
 
+        //Declaring our variable
         TextView textEventName;
         TextView textEventDescp;
 
@@ -90,6 +89,7 @@ public class Event_Recycle_Adapter extends RecyclerView.Adapter<Event_Recycle_Ad
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            //Variable initialization
             textEventDescp = itemView.findViewById(R.id.text_event_desc);
             textEventName = itemView.findViewById(R.id.text_event_Name);
 
