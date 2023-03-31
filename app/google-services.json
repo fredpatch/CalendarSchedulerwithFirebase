@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "681702865498",
+    "firebase_url": "https://calendar-application-firebase-default-rtdb.firebaseio.com",
+    "project_id": "calendar-application-firebase",
+    "storage_bucket": "calendar-application-firebase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:681702865498:android:3dce400ac44464074a3663",
+        "android_client_info": {
+          "package_name": "com.activity.calendarschedulerwithfirebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "681702865498-m6uq02vjp9ubh4hdde7a8ccl4sdit6hf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.activity.calendarschedulerwithfirebase",
+            "certificate_hash": "172c6bd29df608cbda70f739a989457659dcff52"
+          }
+        },
+        {
+          "client_id": "681702865498-la3p932gbbjer6mm8tn07lk82qt7or4c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDU0A_ZQsIzIZikNCtQRssIzUYYz2l2sgI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "681702865498-la3p932gbbjer6mm8tn07lk82qt7or4c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
