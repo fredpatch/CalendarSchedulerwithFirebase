@@ -5,15 +5,12 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -54,14 +51,14 @@ public class Event_Recycle_Adapter extends RecyclerView.Adapter<Event_Recycle_Ad
         holder.textEventDescp.setText("Event Description : " + events.getDescription());
 
         //Update button operation
-        holder.updateBtn.setOnClickListener(new View.OnClickListener() {
+       /* holder.updateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Dialog window to help update our event
                 ViewDialogUpdate viewDialogUpdate = new ViewDialogUpdate();
                 viewDialogUpdate.showdialog(context,events.getId(),events.getTitle(),events.getDescription());
             }
-        });
+        });*/
 
         //Delete button operation
         holder.deleteBtn.setOnClickListener(new View.OnClickListener() {
@@ -106,7 +103,7 @@ public class Event_Recycle_Adapter extends RecyclerView.Adapter<Event_Recycle_Ad
 
         }
     }
-
+/*
     //Dialog update event
     public class ViewDialogUpdate{
         public void showdialog(Context context, String id, String name, String desc){
@@ -149,7 +146,7 @@ public class Event_Recycle_Adapter extends RecyclerView.Adapter<Event_Recycle_Ad
                         if(new_name.equals(name) && new_desc.equals(desc)){
                             Toast.makeText(context, "No change were made !", Toast.LENGTH_LONG).show();
                         } else {
-                            databaseReference.child("EVENTS").child(id).setValue(new Calendar_Event(id,new_name,new_desc));
+                            databaseReference.child("EVENTS").child(id).setValue(new Calendar_Event(id,new_name, time, new_desc));
                             Toast.makeText(context, "Event Updated ...", Toast.LENGTH_LONG).show();
                             dialog.dismiss();
                         }
@@ -164,7 +161,7 @@ public class Event_Recycle_Adapter extends RecyclerView.Adapter<Event_Recycle_Ad
             dialog.show();
         }
     }
-
+*/
     //Dialogue delete option
     public class ViewDialogConfirmDelete{
         public void showdialog(Context context, String id){

@@ -4,14 +4,24 @@ public class Calendar_Event {
 
     private String id;
     private String title;
+    private String time;
     private String description;
 
     public Calendar_Event() {
     }
 
-    public Calendar_Event(String id, String title, String description) {
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public Calendar_Event(String id, String title, /*String time*/ String description) {
         this.id = id;
         this.title = title;
+        this.time = time;
         this.description = description;
     }
 
