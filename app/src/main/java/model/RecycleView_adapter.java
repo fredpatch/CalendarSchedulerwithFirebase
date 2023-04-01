@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -45,7 +46,7 @@ public class RecycleView_adapter extends RecyclerView.Adapter<RecycleView_adapte
         //Count the event
         holder.count_event.setText(String.valueOf(position));
 
-        Calendar_Event calendar_event =eventItemsArrayList.get(position);
+        Calendar_Event calendar_event = eventItemsArrayList.get(position);
 
         //get event name and desc
         holder.event_name.setText("Name: "+calendar_event.getTitle());
@@ -57,7 +58,7 @@ public class RecycleView_adapter extends RecyclerView.Adapter<RecycleView_adapte
         return eventItemsArrayList.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder{
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView event_name;
         TextView event_desc;
@@ -72,6 +73,15 @@ public class RecycleView_adapter extends RecyclerView.Adapter<RecycleView_adapte
             event_desc = itemView.findViewById(R.id.text_event_desc);
             event_name = itemView.findViewById(R.id.text_event_Name);
             count_event = itemView.findViewById(R.id.count_event);
+            
+            //click action
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            Calendar_Event calendar_event = eventItemsArrayList.get(getAdapterPosition());
+            Toast.makeText(context, calendar_event.getTitle()+"", Toast.LENGTH_SHORT).show();
         }
     }
 }

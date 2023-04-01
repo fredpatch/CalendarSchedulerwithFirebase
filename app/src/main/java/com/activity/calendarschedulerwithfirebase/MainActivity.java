@@ -2,6 +2,7 @@ package com.activity.calendarschedulerwithfirebase;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -97,6 +98,9 @@ public class MainActivity extends AppCompatActivity {
 
         calendar_eventArrayList = new ArrayList<>();
         recycleView_adapter = new RecycleView_adapter(this,calendar_eventArrayList);
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        recyclerView.addItemDecoration(dividerItemDecoration);
 
         add_event = findViewById(R.id.add_event_btn);
         add_event.setOnClickListener(new View.OnClickListener() {
