@@ -5,12 +5,15 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,6 +28,7 @@ public class Event_Recycle_Adapter extends RecyclerView.Adapter<Event_Recycle_Ad
     Context context;
     ArrayList<Calendar_Event> eventItemsArrayList;
     DatabaseReference databaseReference;
+    private RecyclerView recyclerView;
 
     public Event_Recycle_Adapter(Context context, ArrayList<Calendar_Event> eventItemsArrayList) {
         this.context = context;
@@ -86,6 +90,8 @@ public class Event_Recycle_Adapter extends RecyclerView.Adapter<Event_Recycle_Ad
         Button updateBtn;
 
 
+
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -93,8 +99,11 @@ public class Event_Recycle_Adapter extends RecyclerView.Adapter<Event_Recycle_Ad
             textEventDescp = itemView.findViewById(R.id.text_event_desc);
             textEventName = itemView.findViewById(R.id.text_event_Name);
 
+            /*
             deleteBtn = itemView.findViewById(R.id.buttondelete);
-            updateBtn = itemView.findViewById(R.id.updateEvent);
+            updateBtn = itemView.findViewById(R.id.updateEvent); */
+
+
         }
     }
 
@@ -105,6 +114,8 @@ public class Event_Recycle_Adapter extends RecyclerView.Adapter<Event_Recycle_Ad
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.setCancelable(false);
             dialog.setContentView(R.layout.alert_dialog_add_new_event);
+
+            recyclerView = dialog.findViewById(R.id.recycleView);
 
             EditText txt_name_event = dialog.findViewById(R.id.text_add_event_Name);
             EditText txt_desc_event = dialog.findViewById(R.id.text_add_event_desc);

@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -15,7 +14,10 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -24,23 +26,35 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 import model.Calendar_Event;
 import model.Event_Recycle_Adapter;
+import model.RecycleView_adapter;
 
 public class MainActivity extends AppCompatActivity {
 
+    // choose date with calendar
+    private DatePicker datePicker;
     private CalendarView calendarView;
-    private EditText editText;
-    private String selectedDate;
+    RecycleView_adapter recycleView_adapter;
+
+    private TimePicker timePicker;
+
+    // the current selected date: has to be displayed on the top and
+    // it will be sent to the model if the event build was successfully
+    private LocalDate selectedDate;
+
     private DatabaseReference databaseReference;
 
     RecyclerView recyclerView;
     ArrayList<Calendar_Event> calendar_eventArrayList;
-    Event_Recycle_Adapter adapter;
+    //Event_Recycle_Adapter adapter;
+    final List<String> calendarStringDate = new ArrayList<>();
 
     Button add_event;
 
@@ -52,17 +66,37 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //initialize our calendar
+        calendarView = findViewById(R.id.calendarView);
+
+        //We want to retrieve the calendar value (date)
+        final TextView selectedDay = findViewById(R.id.selectedDay);
+        final TextView selectedMonth = findViewById(R.id.selectedMonth);
+        final TextView selectedYear = findViewById(R.id.selectedYear);
+
+        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+            @Override
+            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                selectedDay.setText(String.valueOf(dayOfMonth));
+                selectedMonth.setText(String.valueOf(month));
+                selectedYear.setText(String.valueOf(year));
+            }
+
+
+        });
 
 
         Objects.requireNonNull(getSupportActionBar()).hide();
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
+
         recyclerView = findViewById(R.id.recycleView);
-        recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(recycleView_adapter);
 
         calendar_eventArrayList = new ArrayList<>();
+        recycleView_adapter = new RecycleView_adapter(this,calendar_eventArrayList);
 
         add_event = findViewById(R.id.add_event_btn);
         add_event.setOnClickListener(new View.OnClickListener() {
@@ -88,9 +122,9 @@ public class MainActivity extends AppCompatActivity {
                     Calendar_Event events = dataSnapshot.getValue(Calendar_Event.class);
                     calendar_eventArrayList.add(events);
                 }
-                adapter = new Event_Recycle_Adapter(MainActivity.this, calendar_eventArrayList);
-                recyclerView.setAdapter(adapter);
-                adapter.notifyDataSetChanged();
+                recycleView_adapter = new RecycleView_adapter(MainActivity.this,calendar_eventArrayList);
+                recyclerView.setAdapter(recycleView_adapter);
+                recycleView_adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -102,13 +136,14 @@ public class MainActivity extends AppCompatActivity {
 
     //Dialog widow to help add new event to the database
     public class ViewDialogAdd{
+
         public void showdialog(Context context){
             final Dialog dialog = new Dialog(context);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.setCancelable(false);
             dialog.setContentView(R.layout.alert_dialog_add_new_event);
 
-            //Retrieve value from editext to supply our database
+            //Retrieve value from edittext to supply our database
             EditText txt_name_event = dialog.findViewById(R.id.text_add_event_Name);
             EditText txt_desc_event = dialog.findViewById(R.id.text_add_event_desc);
 
@@ -128,6 +163,7 @@ public class MainActivity extends AppCompatActivity {
             buttonAdd.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
                     String id = "event" + new Date().getTime();
                     String name = txt_name_event.getText().toString();
                     String desc = txt_desc_event.getText().toString();

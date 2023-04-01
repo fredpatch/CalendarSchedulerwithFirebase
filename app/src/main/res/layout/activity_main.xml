@@ -7,6 +7,33 @@
     tools:context=".MainActivity"
     android:orientation="vertical">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/selectedDay"
+            android:layout_marginTop="20sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/selectedMonth"
+            android:layout_marginTop="20sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/selectedYear"
+            android:layout_marginTop="20sp"/>
+
+    </LinearLayout>
+
+
 
 
     <LinearLayout
@@ -22,6 +49,13 @@
              />
 
     </LinearLayout>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/add_event_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:onClick="add_Event"
+        android:text="Add Event"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -43,20 +77,12 @@
         android:layout_width="match_parent"
         android:id="@+id/recycleView"
         android:layout_weight="1"
-        android:layout_height="0dp"/>
+        android:layout_height="0dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
 
 
     </LinearLayout>
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/add_event_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:onClick="add_Event"
-        android:text="Add Event"/>
-
 
 
 </LinearLayout>
